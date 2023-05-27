@@ -161,4 +161,38 @@ void rescheduler(int *cut)
 	return;
 }
 
-
+void cutting(int *cut)
+{
+	int val;
+	if(*cut==1)
+	{
+		sleep(10);
+		sal1++;
+		printf("\n Customer # %d got a haircut from barber no. 01.\n\n His current salary is Rs. %d\n",*(cut+1),(sal1*200));
+	}
+	if(*cut==2)
+	{
+		sleep(10);
+		sal2++;
+		printf("\n Customer # %d got a haircut from barber no. 02.\n\n His current salary is Rs. %d\n",*(cut+1),(sal2*200));
+	}
+	if(*cut==3)
+	{
+		sleep(10);
+		sal3++;
+		printf("\n Customer # %d got a haircut from barber no. 03.\n\n His current salary is Rs. %d\n",*(cut+1),(sal3*200));
+	}
+	
+	
+	sem_post(&semb[*cut-1]);
+	sem_getvalue(&semch[*cut-1],&val);
+	 if (val==10)
+	 {
+	 	printf("\n\n\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n");
+	 	printf("Barber # %d has gone to sleep\n\n",*cut);
+	 }
+	
+	pthread_exit(0);
+	
+	
+}
